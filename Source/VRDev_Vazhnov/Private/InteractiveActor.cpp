@@ -11,15 +11,11 @@ AInteractiveActor::AInteractiveActor()
 	MeshComp->SetCollisionProfileName(TEXT("PhysicsActor"));
 }
 
-void AInteractiveActor::SetIsHovered(const bool bIsHovered) const
+void AInteractiveActor::SetState(const EInteractiveActorState NewState)
 {
+	Data.State = NewState;
 	UStaticMeshComponent* MeshComp = GetStaticMeshComponent();
-	MeshComp->SetOverlayMaterial(bIsHovered && HoveredOverlayMaterial ? HoveredOverlayMaterial : nullptr);
-}
-
-void AInteractiveActor::SetIsHeld(const bool bIsHeld) const
-{
-	UStaticMeshComponent* MeshComp = GetStaticMeshComponent();
-	MeshComp->SetSimulatePhysics(!bIsHeld);
-	MeshComp->SetCollisionProfileName(bIsHeld ? TEXT("NoCollision") : TEXT("PhysicsActor"));
+	MeshComp->SetSimulatePhysics(NewState != EInteractiveActorState::Held);
+	MeshComp->SetCollisionProfileName(NewState == EInteractiveActorState::Held ? "NoCollision" : "PhysicsActor");
+	MeshComp->SetOverlayMaterial(NewState == EInteractiveActorState::Hovered ? HoveredOverlayMaterial : nullptr);
 }

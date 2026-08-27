@@ -7,6 +7,7 @@
 UENUM(BlueprintType)
 enum class EInteractiveActorState : uint8
 {
+	Free UMETA(DisplayName = "Free"),
 	Hovered UMETA(DisplayName = "Hovered"),
 	Held UMETA(DisplayName = "Held")
 };
@@ -16,6 +17,7 @@ struct FInteractiveActorData
 {
 	GENERATED_BODY()
 	
+	UPROPERTY(BlueprintReadOnly) EInteractiveActorState State;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly) FString Name;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly) FString Type;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (ClampMin = 0, UIMin = 0)) float Weight;
@@ -31,8 +33,7 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly) FInteractiveActorData Data;
 	
-	UFUNCTION(BlueprintCallable) void SetIsHovered(bool bIsHovered) const;
-	UFUNCTION(BlueprintCallable) void SetIsHeld(bool bIsHeld) const;
+	UFUNCTION(BlueprintCallable) void SetState(EInteractiveActorState NewState);
 	
 private:
 	UPROPERTY() UMaterialInterface* HoveredOverlayMaterial;
