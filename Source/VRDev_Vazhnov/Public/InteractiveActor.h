@@ -17,10 +17,11 @@ struct FInteractiveActorData
 {
 	GENERATED_BODY()
 	
-	UPROPERTY(BlueprintReadOnly) EInteractiveActorState State;
+	UPROPERTY(BlueprintReadOnly) EInteractiveActorState State = EInteractiveActorState::Free;
+	UPROPERTY(BlueprintReadOnly) FString Type;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly) FString Name;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly) FString Type;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (ClampMin = 0, UIMin = 0)) float Weight;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) FString Description;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (ClampMin = 0.0f, UIMin = 0.0f)) float Weight = 0.0f;
 };
 
 UCLASS()
